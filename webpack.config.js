@@ -6,8 +6,6 @@ const glob = require('glob');
 const style = glob.sync('./src/**/*.scss');
 const script = glob.sync('./src/js/*.js');
 const normalize = glob.sync('./src/css/normalize.css');
-const slick = glob.sync('./src/css/slick.css');
-const slickJS = glob.sync('.src/slick/slick.js');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -16,7 +14,6 @@ const notifier = require('node-notifier');
 
 module.exports = {
     entry: {
-        'css/slick': slick,
         'css/normalize': normalize,
         'css/style': style,
         'js/bundle': script,
@@ -69,12 +66,7 @@ module.exports = {
             to: './img'
         },
             {
-                from: './src/slick',
-                to: './slick'
-            },
-
-            {
-                from: './src/slick/slick.js',
+                from: './src/vendor/masonry.js',
                 to: './js'
             },
 

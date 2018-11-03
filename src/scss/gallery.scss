@@ -5,25 +5,27 @@
   background-color: #f2f2f2;
   @include center;
   .gallery-container {
-    width: calc(100% - 10px);
   }
 }
 
+.grid {
+  margin: 0 auto;
+}
 
-.arrow-right {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 0 10px 17.3px;
-  border-color: transparent transparent transparent #007bff;
+.grid-item {
+  width: 20vw;
+  height: 20vw;
+  cursor: pointer;
+  margin-top: 20px;
 }
-.arrow-left {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 17.3px 10px 0;
-  border-color: transparent #007bff transparent transparent;
+
+.grid-item--gigante {
+  width: 40vw;
+  height: 40vw;
 }
+
+
+
 
 
 
