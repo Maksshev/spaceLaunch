@@ -4,7 +4,21 @@
   width: 100%;
   background-color: #f2f2f2;
   @include center;
+  .wrapper {
+
+    width: 320px;
+    @include md {
+      width: 500px;
+    }
+    @include lg {
+      width: 750px;
+    }
+    @include xl {
+      width: 1000px;
+    }
+  }
   .gallery-container {
+    width: 100%;
   }
 }
 
@@ -12,17 +26,77 @@
   margin: 0 auto;
 }
 
+
 .grid-item {
-  width: 20vw;
-  height: 20vw;
+  width: 250px;
+  height: 250px;
   cursor: pointer;
-  margin-top: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  @include md {
+    flex-direction: row;
+  }
+  overflow: hidden;
+  .rocket-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  .timer {
+    display: none;
+  }
 }
 
 .grid-item--gigante {
-  width: 40vw;
-  height: 40vw;
+  height: 500px;
+  .rocket-img {
+    width: 250px;
+    height: 250px;
+    position: relative;
+  }
+  .timer {
+    @include timer;
+    .info-container {
+      @include info;
+      .name {
+        margin-top: 20px;
+      }
+      .mission, .countdown {
+        margin-top: 20px;
+      }
+
+    }
+  }
+  @include md {
+    height: 250px;
+    width: 500px;
+    .rocket-img {
+      width: 250px;
+      height: 250px;
+      position: relative;
+    }
+    .timer {
+      @include timer;
+      .info-container {
+        @include info;
+        .mission, .countdown {
+          margin-top: 20px;
+        }
+
+
+      }
+    }
+  }
 }
+
+.countdown {
+  text-shadow: 0 0 5px #fff, 0 0 7px #fff;
+}
+
+
+
+
 
 
 

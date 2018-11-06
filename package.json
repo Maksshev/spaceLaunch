@@ -30,6 +30,7 @@
     "jquery-bridget": "^2.0.1",
     "masonry-layout": "^4.2.2",
     "mini-css-extract-plugin": "^0.4.4",
+    "moment": "^2.22.2",
     "node-glob": "^1.2.0",
     "node-notifier": "^5.2.1",
     "node-sass": "^4.9.4",

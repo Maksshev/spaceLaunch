@@ -14,3 +14,43 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@mixin timer {
+  @include center;
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  background-image: url("../img/universe.jpg");
+  background-size: cover;
+}
+
+@mixin info {
+  @include between;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: center;
+  width: 90%;
+  height: 90%;
+  overflow-y: auto;
+  color: white;
+}
+
+@mixin md {
+  @media screen and (min-width: 520px) {
+    @content
+  }
+}
+
+@mixin lg {
+  @media screen and (min-width: 770px){
+    @content
+  }
+}
+
+@mixin xl {
+  @media screen and (min-width: 1020px) {
+    @content
+  }
+}
+
+
