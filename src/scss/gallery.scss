@@ -95,6 +95,18 @@
 }
 
 
+.load-more-wrapper {
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background-color: #f2f2f2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .load-more {
+    cursor: pointer;
+  }
+}
+
 
 
 

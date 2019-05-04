@@ -3,11 +3,26 @@ const moment = require('moment');
 const slick = require('slick-carousel');
 const jQueryBridget = require('jquery-bridget');
 const Masonry = require('masonry-layout');
-let source = `https://launchlibrary.net/1.4/launch/next/20`;
+// let firstSource = `https://launchlibrary.net/1.4/launch/next/30`;
 jQueryBridget('masonry', Masonry, $);
 
 
-async function getInfo() {
+const sourceObj = {
+    start: 50,
+    get source() {
+        return `https://launchlibrary.net/1.4/launch/next/${this.start}`
+    },
+    next: function () {
+        this.start += 70
+    },
+    initial: function () {
+        this.start = 30
+    }
+}
+
+
+
+async function getInfo(source) {
     let result = [];
     let l = await fetch(source);
     let json = await l.json();
@@ -35,18 +50,26 @@ async function getInfo() {
             continue;
         }
     }
-    console.log(result);
+    if (result.length > 30) {
+        result.splice(0, 30);
+    }
     return result;
 }
 
 
-function createArticle(callback) {
-    getInfo().then((results, a = callback) => {
+function createArticle(source, amount, grid, callback) {
+    const loader = document.createElement('div');
+    loader.setAttribute('id', 'loader');
+    loader.innerHTML = '<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>';
+    document.body.appendChild(loader);
+    getInfo(source).then((results, mas = grid, a = callback) => {
         let i = 0;
-        while ($('.gallery-item').length < 10) {
+        while ($('.gallery-item').length < amount) {
             if (results[i] !== undefined) {
                 if (!results[i].img.includes('placeholder')) {
-                    $('.gallery-container').append(`
+                    if (mas === false) {
+                        console.log('undef')
+                        $('.gallery-container').append(`
                 <div id="${i}" class="gallery-item grid-item">
                     <img class="rocket-img" src="${results[i].img}" alt="">
                    
@@ -59,6 +82,22 @@ function createArticle(callback) {
                     </div>                    
                 </div>
                 `);
+                    } else if (mas === true) {
+                        console.log('def')
+                        sourceObj.fGrid.append(`
+                <div id="${i}" class="gallery-item grid-item load">
+                    <img class="rocket-img" src="${results[i].img}" alt="">
+                   
+                    <div class="timer ${i}">
+                        <div class="info-container">
+                        <span class="name">${results[i].name}</span>
+                        <span class="countdown"></span>
+                        <span class="mission">${results[i].mission}</span>
+                        </div>
+                    </div>                    
+                </div>
+                `).masonry('appended', $('.load')).masonry()
+                    }
 
                     $(`#${i}`)
                         .css({
@@ -74,17 +113,19 @@ function createArticle(callback) {
             }
             i++;
         }
+
         a();
     });
 }
 
-createArticle(function () {
+const grid = function () {
     const $grid = $('.grid').masonry({
         itemSelector: '.grid-item',
         // columnWidth: 300,
         fitWidth: true,
     });
 
+    sourceObj.fGrid = $grid;
     $grid.on('click', '.grid-item', function () {
         $(this).toggleClass('grid-item--gigante');
         $grid.masonry();
@@ -94,7 +135,17 @@ createArticle(function () {
             }, 1000);
         }
     });
-});
+
+    const loader = document.getElementById('loader');
+    document.body.removeChild(loader);
+};
+
+
+
+
+createArticle(sourceObj.source, 12, false, grid);
+
+
 
 
 function createTimer(startDate, i) {
@@ -113,4 +164,7 @@ function createTimer(startDate, i) {
         })
     }, 1000);
 }
+
+
+
 
